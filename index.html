@@ -7,6 +7,34 @@
   </head>
   <body>
 
+    <div class="form-container">
+
+      <form id="create-syllabus-form" style="">
+        <h3>Create a Syllabus!</h3>
+
+        <input id='input-title' type="text" name="title" value="" placeholder="Enter your syllabus name..." class="input-text">
+        <br><br>
+        <textarea id='input-description' name="description" rows="8" cols="80" value="" placeholder="Enter your syllabus description..."></textarea>
+        <br><br>
+        <input id='input-url' type="text" name="image" value="" placeholder="Enter your syllabus image URL..." class="input-text">
+        <br><br>
+
+        <p>Choose A category </p>
+        <select id="categories" name="categories">
+          <option value="1">Art</option>
+          <option value="2">Tech</option>
+          <option value="3">Science</option>
+        </select>
+        <br><br>
+
+        <input id= 'create-button' type="submit" name="submit" value="Create New Syllabus" class="submit">
+      </form>
+
+    </div>
+
+<br><br>
+
+
     <div id="syllabus-container">
 
     </div>
