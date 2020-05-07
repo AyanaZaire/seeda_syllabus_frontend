@@ -281,4 +281,7 @@ function render(syllabus) {
   document.querySelector('#syllabus-container').innerHTML += syllabusMarkup;
 }
 ```
-s
+
+
+### PART 4 Notes
+1. Implement `.catch()` in fetch requests to handle errors.
