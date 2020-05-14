@@ -61,17 +61,17 @@ This would feel really annoying. We _just_ had access to this data when we retri
 
 If we **weren't** storing an `id` on the button, a second annoyance we might notice about our current implementation is that when the edit button is clicked, nothing on the button itself indicates what syllabus the button is for. We would have to look at the text of it's parent h3 element. We've solved this by adding data-attributes on the parent `<div>` and `<button>`.
 
-Refactored code:
+### Create Syllabus Class and Render Function
 
 ```javascript
 /* create a file src/syllabus.js and link to it from your index.html */
 class Syllabus {
-  constructor(data) {
-    this.id = data.id;
-    this.title = data.title;
-    this.description = data.description;
-    this.image_url = data.image_url;
-    this.category = data.category;
+  constructor(id, syllabusAttributes) {
+    this.id = id;
+    this.title = syllabusAttributes.title;
+    this.description = syllabusAttributes.description;
+    this.image_url = syllabusAttributes.image_url;
+    this.category = syllabusAttributes.category;
     Syllabus.all.push(this);
   }
 
@@ -95,6 +95,8 @@ We totalllyyyy could have taken the id of the syllabus and added it to the DOM i
 
 But this is exactly what data-attributes are for and should make our lives easier. The important takeaway here is that the data our application logic depends on **lives in the DOM itself and we must put it there somehow.** _Understanding that is more important than how exactly we put that data there._
 
+### Refactor GET
+
 ```javascript
 /* src/index.js */
 function getSyllabi() {
@@ -102,8 +104,8 @@ function getSyllabi() {
   .then(response => response.json())
   .then(syllabi => {
     syllabi.data.forEach(syllabus => {
-      // create a new instance of the Syllabus class for every syllabus in the array from the DB
-      const newSyllabus = new Syllabus(syllabus)
+      // create a new instance of the Syllabus class for every syllabus in the array from the DB (remember how our data is nested)
+      const newSyllabus = new Syllabus(syllabus.id, syllabus.attributes)
 
       // call renderSyllabusCard() located in Syllabus class
       document.querySelector('#syllabus-container').innerHTML += newSyllabus.renderSyllabusCard();
@@ -111,6 +113,31 @@ function getSyllabi() {
   })
 }
 ```
+
+### Refactor POST
+
+```javascript
+function postFetch(title, description, image_url, category_id) {
+  // build my body object outside of my fetch
+  const bodyData = {title, description, image_url, category_id}
+
+  fetch(endPoint, {
+    // POST request
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(bodyData)
+  })
+  .then(response => response.json())
+  .then(syllabus => {
+
+    const newSyllabus = new Syllabus(syllabus.data.id, syllabus.data.attributes)
+
+    // call renderSyllabusCard() located in Syllabus class
+    document.querySelector('#syllabus-container').innerHTML += newSyllabus.renderSyllabusCard();
+  })
+}
+```
+
 ## Creating a Static Method for "Find" Utility
 
 

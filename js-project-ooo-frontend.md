@@ -138,7 +138,7 @@ The application we will create during the project build series is a "Syllabus Sh
 
 **Submit (POST) data _to_ the server**
 
-- [ ] 11. `POST` request
+- [x] 11. `POST` request
     - Create a new branch for `POST` implementation.
     - Create form
     - Create submit event listener
@@ -156,6 +156,7 @@ The application we will create during the project build series is a "Syllabus Sh
 ### PART 4: OOJS Refactor
 - [ ] 1. _IMPORTANT:_ Create a separate branch for your OOJS Refactor
 - [ ] 2. Create a JS Class (ex: `class Syllabus`)
+- [ ] 3. Link to the new JS file in your `index.html` (ex: `<script type="text/javascript" src="src/syllabus.js"></script>`)
 - [ ] 3. Create a constructor that pushes all instances of `this` into an empty array (See part 4 notes for example)
 - [ ] 4. Refactor render functionality by creating a render function in your JS class
 - [ ] 5. For future use, create a static method in your JS class that finds an object based on it's id. (In the PART 4 notes we see how this would be useful for 'update/`PATCH`' functionality)
