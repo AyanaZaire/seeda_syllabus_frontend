@@ -15,25 +15,14 @@ function getSyllabi() {
   .then(syllabi => {
     syllabi.data.forEach(syllabus => {
       // double check how your data is nested in the console so you can successfully access the attributes of each individual object
-      render(syllabus)
+      // debugger
+      let newSyllabus = new Syllabus(syllabus, syllabus.attributes)
+
+      document.querySelector('#syllabus-container').innerHTML += newSyllabus.renderSyllabusCard()
     })
   // .catch(err => console.log(err))
   })
 }
-
-function render(syllabus) {
-  const syllabusMarkup = `
-    <div data-id=${syllabus.id}>
-      <img src=${syllabus.attributes.image_url} height="200" width="250">
-      <h3>${syllabus.attributes.title}</h3>
-      <p>${syllabus.attributes.category.name}</p>
-      <button data-id=${syllabus.id}>edit</button>
-    </div>
-    <br><br>`;
-
-    document.querySelector('#syllabus-container').innerHTML += syllabusMarkup
-}
-
 
 function createFormHandler(e) {
   e.preventDefault()
@@ -60,7 +49,9 @@ function postFetch(title, description, image_url, category_id) {
     console.log(syllabus);
     const syllabusData = syllabus.data
     // render JSON response
-    render(syllabusData)
+    let newSyllabus = new Syllabus(syllabusData, syllabusData.attributes)
+
+    document.querySelector('#syllabus-container').innerHTML += newSyllabus.renderSyllabusCard()
   })
 
 }
