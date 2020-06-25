@@ -2,6 +2,7 @@ const endPoint = "http://localhost:3000/api/v1/syllabuses"
 
 document.addEventListener('DOMContentLoaded', () => {
   // fetch and load syllabi
+  console.log("DOM is Loaded");
   getSyllabi()
 
   const createSyllabusForm = document.querySelector("#create-syllabus-form")
