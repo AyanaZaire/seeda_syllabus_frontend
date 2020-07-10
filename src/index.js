@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM is Loaded");
   getSyllabi()
 
+  // event listner and handler for create syllabus form
   const createSyllabusForm = document.querySelector("#create-syllabus-form")
-
   createSyllabusForm.addEventListener("submit", (e) => createFormHandler(e))
 })
 
@@ -21,7 +21,6 @@ function getSyllabi() {
 
       document.querySelector('#syllabus-container').innerHTML += newSyllabus.renderSyllabusCard()
     })
-  // .catch(err => console.log(err))
   })
 }
 
@@ -45,13 +44,11 @@ function postFetch(title, description, image_url, category_id) {
     body: JSON.stringify(bodyData)
   })
   .then(response => response.json())
-  // .catch(err => console.log(err))
   .then(syllabus => {
     console.log(syllabus);
     const syllabusData = syllabus.data
     // render JSON response
     let newSyllabus = new Syllabus(syllabusData, syllabusData.attributes)
-
     document.querySelector('#syllabus-container').innerHTML += newSyllabus.renderSyllabusCard()
   })
 
