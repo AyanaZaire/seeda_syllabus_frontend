@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // event listner and handler for create syllabus form
   const createSyllabusForm = document.querySelector("#create-syllabus-form")
   createSyllabusForm.addEventListener("submit", (e) => createFormHandler(e))
+
+  const loginForm = document.querySelector("#login-form")
+  loginForm.addEventListener("submit", (e) => loginFormHandler(e))
 })
 
 function getSyllabi() {
@@ -22,6 +25,32 @@ function getSyllabi() {
       document.querySelector('#syllabus-container').innerHTML += newSyllabus.renderSyllabusCard()
     })
   })
+}
+
+function loginFormHandler(e) {
+  e.preventDefault()
+  const emailInput = e.target.querySelector("#login-email").value
+  const pwInput = e.target.querySelector("#login-password").value
+  loginFetch(emailInput, pwInput)
+}
+
+function loginFetch(email, password) {
+  const bodyData = {user: { email, password} }
+
+  fetch("http://localhost:3000/api/v1/login", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(bodyData)
+  })
+  .then(response => response.json())
+  .then(json => {
+    localStorage.setItem('jwt_token', json.jwt)
+    renderUserProfile()
+  })
+}
+
+function renderUserProfile() {
+  console.log(localStorage.getItem('jwt_token'));
 }
 
 function createFormHandler(e) {
